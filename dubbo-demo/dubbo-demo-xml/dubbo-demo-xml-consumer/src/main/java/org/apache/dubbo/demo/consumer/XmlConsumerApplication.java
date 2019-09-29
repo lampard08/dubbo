@@ -20,11 +20,17 @@ import org.apache.dubbo.demo.DemoService;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Application {
+public class XmlConsumerApplication {
     public static void main(String[] args) throws InterruptedException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
+
+        // 启动 spring 容器
         context.start();
+
+        // 获取远端服务
         DemoService demoService = context.getBean("demoService", DemoService.class);
+
+        // 循环执行
         while (true) {
 
             String hello = demoService.sayHello("world");

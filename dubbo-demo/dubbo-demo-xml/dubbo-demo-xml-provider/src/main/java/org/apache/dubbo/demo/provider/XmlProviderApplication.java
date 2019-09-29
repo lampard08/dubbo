@@ -18,10 +18,13 @@ package org.apache.dubbo.demo.provider;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Application {
+public class XmlProviderApplication {
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-provider.xml");
+
+        // 启动 spring 容器
         context.start();
+
         System.in.read();
     }
 }

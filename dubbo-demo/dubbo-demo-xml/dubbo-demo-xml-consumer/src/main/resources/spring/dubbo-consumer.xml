@@ -21,10 +21,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
+    <!-- 服务名 -->
     <dubbo:application name="demo-consumer"/>
 
+    <!-- 注册中心 -->
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
+    <!-- 指定要消费的服务 -->
     <dubbo:reference id="demoService" check="false" interface="org.apache.dubbo.demo.DemoService"/>
 
 </beans>

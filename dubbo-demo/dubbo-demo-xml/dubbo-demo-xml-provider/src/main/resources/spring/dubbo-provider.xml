@@ -21,14 +21,19 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
+    <!-- 服务名 -->
     <dubbo:application name="demo-provider"/>
 
+    <!-- 注册中心地址 -->
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
-    <dubbo:protocol name="dubbo"/>
+    <!-- 协议名及端口 -->
+    <dubbo:protocol name="dubbo" port="20800"/>
 
+    <!-- 本地服务，spring管理 -->
     <bean id="demoService" class="org.apache.dubbo.demo.provider.DemoServiceImpl"/>
 
+    <!-- 声明暴露的接口 -->
     <dubbo:service interface="org.apache.dubbo.demo.DemoService" ref="demoService"/>
 
 </beans>
