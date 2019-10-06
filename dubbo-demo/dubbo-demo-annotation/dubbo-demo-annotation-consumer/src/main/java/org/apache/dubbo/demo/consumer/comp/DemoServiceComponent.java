@@ -26,6 +26,10 @@ import org.springframework.stereotype.Component;
 
 @Component("demoServiceComponent")
 public class DemoServiceComponent implements DemoService {
+
+    /**
+     * 远程服务
+     */
     @Reference
     private DemoService demoService;
 
