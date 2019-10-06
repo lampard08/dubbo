@@ -20,6 +20,11 @@ import org.apache.dubbo.demo.DemoService;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * xml demon consumer
+ *
+ * @author lampard
+ */
 public class XmlConsumerApplication {
     public static void main(String[] args) throws InterruptedException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
@@ -36,7 +41,7 @@ public class XmlConsumerApplication {
             String hello = demoService.sayHello("world");
             System.out.println("result: " + hello);
 
-            Thread.sleep(20*1000L);
+            Thread.sleep(20 * 1000L);
         }
     }
 }
