@@ -16,21 +16,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.dubbo.demo.provider;
+package org.apache.dubbo.demo.consumer;
 
 import org.apache.dubbo.config.ApplicationConfig;
+import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
-import org.apache.dubbo.config.ServiceConfig;
 import org.apache.dubbo.demo.DemoService;
 
-public class Application {
-    public static void main(String[] args) throws Exception {
-        ServiceConfig<DemoServiceImpl> service = new ServiceConfig<>();
-        service.setApplication(new ApplicationConfig("dubbo-demo-api-provider"));
-        service.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
-        service.setInterface(DemoService.class);
-        service.setRef(new DemoServiceImpl());
-        service.export();
-        System.in.read();
+/**
+ * API DEMO consumer
+ *
+ * @author lampard
+ */
+public class ApiConsumerApplication {
+    public static void main(String[] args) {
+        // 设置消费方
+        ReferenceConfig<DemoService> reference = new ReferenceConfig<>();
+        // 设置消费方服务名
+        reference.setApplication(new ApplicationConfig("dubbo-demo-api-consumer"));
+        // 设置 注册中心
+        reference.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
+        // 指定要消费的服务
+        reference.setInterface(DemoService.class);
+        // 创建远程连接 并 做动态代理转换
+        DemoService service = reference.get();
+
+        // 通过 proxy 进行调用
+        String message = service.sayHello("dubbo");
+
+        System.out.println(message);
     }
 }

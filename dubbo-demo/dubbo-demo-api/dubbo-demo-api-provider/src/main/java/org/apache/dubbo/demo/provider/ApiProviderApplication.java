@@ -16,21 +16,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.dubbo.demo.consumer;
+package org.apache.dubbo.demo.provider;
 
 import org.apache.dubbo.config.ApplicationConfig;
-import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
+import org.apache.dubbo.config.ServiceConfig;
 import org.apache.dubbo.demo.DemoService;
 
-public class Application {
-    public static void main(String[] args) {
-        ReferenceConfig<DemoService> reference = new ReferenceConfig<>();
-        reference.setApplication(new ApplicationConfig("dubbo-demo-api-consumer"));
-        reference.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
-        reference.setInterface(DemoService.class);
-        DemoService service = reference.get();
-        String message = service.sayHello("dubbo");
-        System.out.println(message);
+/**
+ * API DEMO provider
+ *
+ * @author lampard
+ */
+public class ApiProviderApplication {
+    public static void main(String[] args) throws Exception {
+
+        // 创建 service 配置
+        ServiceConfig<DemoServiceImpl> service = new ServiceConfig<>();
+        // 设置服务名
+        service.setApplication(new ApplicationConfig("dubbo-demo-api-provider"));
+        // 设置 注册重心
+        service.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
+        // 设置暴露的服务类
+        service.setInterface(DemoService.class);
+        // 设置服务类的实现
+        service.setRef(new DemoServiceImpl());
+        // 暴露服务
+        service.export();
+
+        System.in.read();
     }
 }
